@@ -17,7 +17,6 @@ library(broom)
 library(stringr)
 library(fmsb)
 library(ggrepel)
-library(purrr)
 
 # Step 1: Import and Tidy Flow  Data from CSV --------
 
@@ -48,7 +47,7 @@ arrange()
 Soils_Storage_Wide_Tidy <- Soils_Wide_Tidy %>%
 rowwise()  %>%
 mutate( across(contains('mg/Kg'),funs(Storage = .*`BD, g/cc`*`THICKNESS, cm`/100))) %>%  #convert mg/kg to g/m^2: 10,000cm^2/1m^2 * 1kg/1,000,000mg * thickness cm
-rename_at(vars(contains('Storage')), funs(sub("mg/Kg_Storage", " g/m^2", .)))
+rename_at(vars(contains('Storage')), funs(sub(", mg/Kg_Storage", " g/m^2", .)))
 
 # Visualize ---------------------------------------------------------------
 
@@ -58,6 +57,11 @@ facet_wrap(~Parameter,scales="free")+theme_bw()
 
 #Paretto chart TP mg/kg
 ggplot(Soils_Wide_Tidy ,aes(stats::reorder(STATION,-`TOT-P, mg/Kg`),`TOT-P, mg/Kg`,fill=STA))+geom_col()+theme_bw()+scale_fill_manual(values=c("#7fcdbb","#2c7fb8"))+
+theme(plot.margin = unit(c(.2,.2,.1,.75), "cm"),legend.position = "bottom",axis.text.x = element_text(angle = 60, vjust = 1, hjust=1,size=12),axis.text.y = element_text(size=12),axis.title.x = element_text(size = 14),axis.title.y = element_text(size = 14))+
+labs(x="TOT-P",y=expression(mg~kg-1))+scale_y_continuous(breaks= pretty_breaks(n=10))
+
+#Paretto chart TP g/m^2
+ggplot(Soils_Storage_Wide_Tidy ,aes(stats::reorder(STATION,-`TOT-P g/m^2`),`TOT-P g/m^2`,fill=STA))+geom_col()+theme_bw()+scale_fill_manual(values=c("#7fcdbb","#2c7fb8"))+
 theme(plot.margin = unit(c(.2,.2,.1,.75), "cm"),legend.position = "bottom",axis.text.x = element_text(angle = 60, vjust = 1, hjust=1,size=12),axis.text.y = element_text(size=12),axis.title.x = element_text(size = 14),axis.title.y = element_text(size = 14))+
 labs(x="TOT-P",y=expression(mg~kg-1))+scale_y_continuous(breaks= pretty_breaks(n=10))
 
