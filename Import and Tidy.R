@@ -33,21 +33,34 @@ filter(str_detect(SOIL_SECTION,"FLOC")) %>%  #filter to floc layer
 group_by (STA,STATION) %>%
 summarise(across(where(is.numeric),mean))  #calculate mean of replicate samples from same station
 
+write_csv(Soils_Wide_Tidy, "./Data/Soils_Wide_Tidy.csv")
+
 Soils_Long_Tidy <- Soils_Wide_Tidy %>%   #create long DF
 pivot_longer(names_to="Parameter",values_to="Value",3:24)  #pivot to long DF
 
-Soils_Wide_Scale_Tidy <- Soils_Wide_Tidy %>% 
-mutate(across(where(is.numeric),scale)) #scale values
+write_csv(Soils_Long_Tidy, "./Data/Soils_Long_Tidy.csv")
 
-Soils_Long_Scale_Tidy <- Soils_Wide_Tidy %>% 
-mutate(across(where(is.numeric),scale)) %>% #scale values
-pivot_longer(names_to="Parameter",values_to="Value",3:24) %>% #pivot to long DF 
-arrange()
+Soils_Wide_Scale_Bad_Names <- Soils_Wide_Tidy %>%    
+mutate(across(where(is.numeric),scale))   #scale values (creates column names with special characters)
+
+Soils_Long_Scale_Tidy <- Soils_Wide_Scale_Bad_Names   %>% 
+pivot_longer(names_to="Parameter",values_to="Value",3:24) %>%  #pivot to long DF 
+mutate(Value=Value[,1])  #remove special characters from column name
+
+write_csv(Soils_Long_Scale_Tidy, "./Data/Soils_Long_Scale_Tidy.csv")
+
+Soils_Wide_Scale_Tidy <- Soils_Long_Scale_Tidy %>%   #recreate wide format DF without special charaters in column names
+pivot_wider(names_from="Parameter",values_from="Value")   
+
+write_csv(Soils_Wide_Scale_Tidy,"./Data/Soils_Wide_Scale_Tidy.csv")
 
 Soils_Storage_Wide_Tidy <- Soils_Wide_Tidy %>%
 rowwise()  %>%
 mutate( across(contains('mg/Kg'),funs(Storage = .*`BD, g/cc`*`THICKNESS, cm`/100))) %>%  #convert mg/kg to g/m^2: 10,000cm^2/1m^2 * 1kg/1,000,000mg * thickness cm
 rename_at(vars(contains('Storage')), funs(sub(", mg/Kg_Storage", " g/m^2", .)))
+
+write_csv(Soils_Storage_Wide_Tidy, "./Data/Soils_Storage_Wide_Tidy.csv")
+
 
 # Visualize ---------------------------------------------------------------
 
