@@ -1,0 +1,104 @@
+---
+title: 'Biomarker Study: Finding Comparable Sites'
+author: "Matt Powers"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Objective
+
+The objective of this report is to find sites from STA-34 and STA-1E to be used in the Biomarkers study. Comparisons between the two STAs sites were based on soil and vegetation characteristics. In this report we explore soils data to attempt to find the most similar stations from these STAs. Vegetation comparisons were made from photos of the sites. 
+
+## Assessing Similarity
+
+Because this soils data has 21 different measured analytes it is difficult compare sites graphically. Although visualizing more than 3 variables is tricky several figures were created using only using the most important soil characteristics which left out much of the soils data. To compare sites using all available data cluster analysis was used. There are many different methods of cluster analysis, and we don't pretend to be experts in every technique but follow standard methodologies and provide our best effort at interpretation of the data. Suggestions to improve the analysis are welcome!   
+
+### Graphical Comparisons
+
+21 different soil analytes is just too many to graphically find similarities but can provide a good starting point. Here all analytes are shown by station, values were first scaled by centering, subtracting analyte mean from the station value, then scaled by dividing the residual value by the analyte standard deviation. As you can see the some of the stations like ST34C2A4 and ST1EC32 stick out since they have relatively high values for most analytes compared to other stations. Stations with values near the analyte means also stick out as similar but finding stations that aren't near extremes or at the means is much more difficult. 
+
+Scale Method from -Becker, R. A., Chambers, J. M. and Wilks, A. R. (1988) The New S Language. Wadsworth & Brooks/Cole.
+```{r All Analytes (Values scaled), echo=FALSE}
+knitr::include_graphics("./Figures/All Analytes.jpeg")
+```
+
+### Fractional Distance vs TP Storage
+
+Because of the important role P plays in the biogeochemical processes of the STAs I would give it the greatest weight of any of the analytes. Here we compare sites by P storage. I like storage better than concentration because  bulk density and floc thickness factor in to this parameter. 
+
+```{r TP Storage vs Fractional Distance, echo=FALSE}
+knitr::include_graphics("./Figures/Fractional Distance vs TP Storage.jpeg")
+```
+
+### Cluster Analysis
+Two methods of cluster analysis were used in this analysis, K-means and Hierarchical. The advantage of these methods is they use can use all dimensions of the data when comparing similarity. If you are new to cluster analysis like myself much more information can be found at the following sites which describe the methods used. One thing I've learned through doing this analysis is that there is some parameter tuning that goes into these methods so be advised that like all analysis tools these methods are not a substitute for subject matter expertise but should help inform us in good judgement.    
+
+[K-Means Clustering](https://uc-r.github.io/kmeans_clustering)  \
+
+[Hierarchical Cluster Analysis](https://uc-r.github.io/hc_clustering) \
+
+### K Means 
+K-means is a simple and commonly used method which will group your objects into a predetermined number of clusters. Since we want 5 different comparable stations I pre-selected for 5 clusters. 5 may not be the optimum number of clusters based on the similarity between station but since we want to 5 stations that is what we are going with. 
+
+
+```{r K-Means Clustering, echo=FALSE}
+knitr::include_graphics("./Figures/K-Means Cluster Plot- 5 Groups.jpeg")
+```
+
+   
+ 
+### Hierarchical Cluster Analysis
+There are several methods of Hierarchical cluster analysis. There is a bottom up method known as agglomerative clustering and a top down method known as divisive hierarchical clustering. 
+
+
+### Divisive Clustering
+Using this method stations from the same STAs clustered together, which is not very helpful when we want to find pairs from each STA to compare to each other.
+
+```{r Divisive Clustering, echo=FALSE}
+knitr::include_graphics("./Figures/Dendrogram of Divisive Hierarchical Clustering.png")
+```
+
+### Agglomerative Clustering
+There are 5 different variations of this method. I selected the method withe the highest "Agglomerative coefficient" but all the dendrograms using this method looked fairly similar anyways. These clusters are somewhat helpful because there are Stations from each STA in every group
+
+For example 
+Red Group- ST1EC32 with ST34A4
+Green Group - STA1EC22 with either ST34C2A34 or ST24C2A41  \
+
+```{r Agglomerative Clustering, echo=FALSE}
+knitr::include_graphics("./Figures/Dendrogram of Agglomerative Ward.png")
+```
+    
+
+## Suggested Similar Sites
+Stations that have the greatest similarity based on soils data. This is my interpretation of the data so feel free to make your own suggestions. 
+
+#### Group 1
+Suggested Pairs: STA1EC32 and STA34CA4
+Both are grouped together by K-means and agglomerative cluster analysis. Also, display similar profiles in scaled soil parameters. The only noticeable difference is P storage figure. This might be due to the relative thinness of the  ST1EC32 site at 4cm compared to the thickness of STA34CA4 at 24cm. In my experience floc thickness is highly variable which is why we usually collect in triplicate, and with only 1 sample to go off of I would suspect that floc thickness might be closer together in actuality.   Both reportedly have EAV and are closest sites to inflow by fractional distance. 
+
+#### Group 2
+Suggested Pairs: ST1EC36 and ST34C2A15 
+Again both are grouped together by K-means and agglomerative cluster analysis. These two are a little closer together in P storage than some of the others in the cluster group and both have EAV in poor condition. 
+
+#### Group 3 
+Suggested Pairs: ST34C2A41 and ST1EC22
+Again both are grouped together by K-means and agglomerative cluster analysis. ST34C2AC41 is closer to ST1EC22 than other potential STA34 sites in P storage and fractional distance. Both have some EAV and C22 has reportedly open water as well. 
+
+#### Group 4
+Suggested pairs: ST34C2B33 and STA1EC26
+Grouped together by agglomerative cluster analysis. Also both have EAV vegetation types and similar P storage. 
+
+#### Group 5
+Suggested Pairs:ST34C2B49 and ST1EC214 
+Grouped in the same agglomerative cluster but not k-means. Both are similar in P storage and fractional distance and are reported to have EAV locations. 
+
+
+### Acknowledgments 
+Thanks to Jake, Odi, Jess and Camille in gathering required data for this and helpful suggestions!
+
+
