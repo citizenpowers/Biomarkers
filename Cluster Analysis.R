@@ -143,7 +143,7 @@ hc2 <- hclust(res.dist, method = "ward.D2")
 
 # Create two dendrograms
 dend1 <- as.dendrogram (hc4)
-dend2 <- as.dendrogram (dc1)
+dend2 <- as.dendrogram (hc3)
 
 tanglegram(dend1, dend2)
 
@@ -154,6 +154,4 @@ tanglegram(dend1, dend2,
            common_subtrees_color_lines = TRUE, # Turn-off line colors
            common_subtrees_color_branches = TRUE, # Color common branches 
            main = paste("entanglement =", round(entanglement(dend_list), 2)),
-           lab.cex =.8
-           
-)
+           lab.cex =.8)

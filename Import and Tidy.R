@@ -22,7 +22,7 @@ library(ggrepel)
 
 STA1E_SoilsData_Complete_032222 <- read_excel("Data/STA1E_SoilsData_Complete_032222.xls")  %>% mutate(STA="STA-1E")  
 STA34_SoilsData_Complete_032222 <- read_excel("Data/STA34_SoilsData_Complete_032222.xls")  %>% mutate(STA="STA-34") 
-Sites_Fractional_Distance <- read_excel("Data/Sites Fractional Distance.xlsx",sheet="for_export") %>% rename(`Veg Community`="veg_comm",`Veg Community`="veg_status")
+Sites_Fractional_Distance <- read_excel("Data/Sites Fractional Distance.xlsx",sheet="for_export") %>% rename(`Veg Community`="veg_comm",`Veg Status`="veg_status")
 
 
 # Step 2 Tidy and Join Data -----------------------------------------------
@@ -94,4 +94,11 @@ ggplot(Soils_Storage_Wide_Tidy,aes(frac_dist,`TOT-P g/m^2`,fill=STA,label=STATIO
 theme_bw()
  
 ggsave("./Figures/Fractional Distance vs TP Storage.jpeg",plot=last_plot() ,height=6,width=11,units="in")
+
+#Fractional distance vs TP storage
+ggplot(Soils_Wide_Tidy,aes(frac_dist,`TOT-P, mg/Kg`,fill=STA,label=STATION))+geom_point(shape=21,size=3)+geom_label_repel(size=3,fill="grey90",box.padding=.5)+
+theme_bw()
+
+ggsave("./Figures/Fractional Distance vs TP Concentration.jpeg",plot=last_plot() ,height=6,width=11,units="in")
+
 

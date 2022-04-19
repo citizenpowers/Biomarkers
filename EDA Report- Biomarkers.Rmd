@@ -34,6 +34,14 @@ Because of the important role P plays in the biogeochemical processes of the STA
 knitr::include_graphics("./Figures/Fractional Distance vs TP Storage.jpeg")
 ```
 
+### Fractional Distance vs TP Concentrations
+
+```{r TP Concentration vs Fractional Distance, echo=FALSE}
+knitr::include_graphics("./Figures/Fractional Distance vs TP Concentration.jpeg")
+```
+
+Similar figure but using TP concentration instead of TP storage. 
+
 ### Cluster Analysis
 Two methods of cluster analysis were used in this analysis, K-means and Hierarchical. The advantage of these methods is they use can use all dimensions of the data when comparing similarity. If you are new to cluster analysis like myself much more information can be found at the following sites which describe the methods used. One thing I've learned through doing this analysis is that there is some parameter tuning that goes into these methods so be advised that like all analysis tools these methods are not a substitute for subject matter expertise but should help inform us in good judgement.    
 
