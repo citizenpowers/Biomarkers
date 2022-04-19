@@ -90,13 +90,25 @@ ggplot(Soils_Wide_Tidy,aes(`THICKNESS, cm`,`BD, g/cc`,size=(`TOT-P, mg/Kg`),fill
 theme_bw()
 
 #Fractional distance vs TP storage
-ggplot(Soils_Storage_Wide_Tidy,aes(frac_dist,`TOT-P g/m^2`,fill=STA,label=STATION))+geom_point(shape=21,size=3)+geom_label_repel(size=3,fill="grey90",box.padding=.5)+
+ggplot(Soils_Storage_Wide_Tidy,aes(frac_dist,`TOT-P g/m^2`,fill=STA,label=STATION))+geom_label_repel(size=3,fill="grey90",box.padding=.5)+
+geom_point(data=Soils_Storage_Wide_Tidy %>% filter(STATION %in% c("ST1EC32","ST34C2A4")),aes(frac_dist,`TOT-P g/m^2`),pch=21, size=8,colour="red",fill="white") + #add circle to paired sites
+geom_point(data=Soils_Storage_Wide_Tidy %>% filter(STATION %in% c("ST1EC36","ST34C2A15")),aes(frac_dist,`TOT-P g/m^2`),pch=21, size=8,colour="green",fill="white") + #circle pairs
+geom_point(data=Soils_Storage_Wide_Tidy %>% filter(STATION %in% c("ST34C2A41","ST1EC22")),aes(frac_dist,`TOT-P g/m^2`),pch=21, size=8,colour="orange",fill="white") + #circle pairs
+geom_point(data=Soils_Storage_Wide_Tidy %>% filter(STATION %in% c("ST34C2B33","ST1EC26")),aes(frac_dist,`TOT-P g/m^2`),pch=21, size=8,colour="purple",fill="white") + #circle pairs
+geom_point(data=Soils_Storage_Wide_Tidy %>% filter(STATION %in% c("ST34C2B49","ST1EC214")),aes(frac_dist,`TOT-P g/m^2`),pch=21, size=8,colour="light blue",fill="white") + #circle pairs
+geom_point(shape=21,size=3,color="black")+
 theme_bw()
  
 ggsave("./Figures/Fractional Distance vs TP Storage.jpeg",plot=last_plot() ,height=6,width=11,units="in")
 
 #Fractional distance vs TP storage
-ggplot(Soils_Wide_Tidy,aes(frac_dist,`TOT-P, mg/Kg`,fill=STA,label=STATION))+geom_point(shape=21,size=3)+geom_label_repel(size=3,fill="grey90",box.padding=.5)+
+ggplot(Soils_Wide_Tidy,aes(frac_dist,`TOT-P, mg/Kg`,fill=STA,label=STATION))+geom_label_repel(size=3,fill="grey90",box.padding=.5)+
+geom_point(data=Soils_Storage_Wide_Tidy %>% filter(STATION %in% c("ST1EC32","ST34C2A4")),aes(frac_dist,`TOT-P, mg/Kg`),pch=21, size=8,colour="red",fill="white") + #add circle to paired sites
+geom_point(data=Soils_Storage_Wide_Tidy %>% filter(STATION %in% c("ST1EC36","ST34C2A15")),aes(frac_dist,`TOT-P, mg/Kg`),pch=21, size=8,colour="green",fill="white") + #circle pairs
+geom_point(data=Soils_Storage_Wide_Tidy %>% filter(STATION %in% c("ST34C2A41","ST1EC22")),aes(frac_dist,`TOT-P, mg/Kg`),pch=21, size=8,colour="orange",fill="white") + #circle pairs
+geom_point(data=Soils_Storage_Wide_Tidy %>% filter(STATION %in% c("ST34C2B33","ST1EC26")),aes(frac_dist,`TOT-P, mg/Kg`),pch=21, size=8,colour="purple",fill="white") + #circle pairs
+geom_point(data=Soils_Storage_Wide_Tidy %>% filter(STATION %in% c("ST34C2B49","ST1EC214")),aes(frac_dist,`TOT-P, mg/Kg`),pch=21, size=8,colour="light blue",fill="white") + #circle pairs
+geom_point(shape=21,size=3,color="black")+
 theme_bw()
 
 ggsave("./Figures/Fractional Distance vs TP Concentration.jpeg",plot=last_plot() ,height=6,width=11,units="in")

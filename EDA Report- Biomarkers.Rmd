@@ -86,7 +86,7 @@ knitr::include_graphics("./Figures/Dendrogram of Agglomerative Ward.png")
 Stations that have the greatest similarity based on soils data. This is my interpretation of the data so feel free to make your own suggestions. 
 
 #### Group 1
-Suggested Pairs: STA1EC32 and STA34CA4
+Suggested Pairs: ST1EC32 and STA34C2A4
 Both are grouped together by K-means and agglomerative cluster analysis. Also, display similar profiles in scaled soil parameters. The only noticeable difference is P storage figure. This might be due to the relative thinness of the  ST1EC32 site at 4cm compared to the thickness of STA34CA4 at 24cm. In my experience floc thickness is highly variable which is why we usually collect in triplicate, and with only 1 sample to go off of I would suspect that floc thickness might be closer together in actuality.   Both reportedly have EAV and are closest sites to inflow by fractional distance. 
 
 #### Group 2
@@ -98,7 +98,7 @@ Suggested Pairs: ST34C2A41 and ST1EC22
 Again both are grouped together by K-means and agglomerative cluster analysis. ST34C2AC41 is closer to ST1EC22 than other potential STA34 sites in P storage and fractional distance. Both have some EAV and C22 has reportedly open water as well. 
 
 #### Group 4
-Suggested pairs: ST34C2B33 and STA1EC26
+Suggested pairs: ST34C2B33 and ST1EC26
 Grouped together by agglomerative cluster analysis. Also both have EAV vegetation types and similar P storage. 
 
 #### Group 5
